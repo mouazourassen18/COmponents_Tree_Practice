@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ToDoItem from "./ToDoItem";
 import InputArea from "./InputArea";
 
-function App() {
+function App(props) {
   const [inputText, setInputText] = useState("");
   const [items, setItems] = useState([]);
 
@@ -12,14 +12,14 @@ function App() {
   }
 
   function addItem() {
-    setItems(prevItems => {
+    setItems((prevItems) => {
       return [...prevItems, inputText];
     });
     setInputText("");
   }
 
   function deleteItem(id) {
-    setItems(prevItems => {
+    setItems((prevItems) => {
       return prevItems.filter((item, index) => {
         return index !== id;
       });
@@ -31,7 +31,11 @@ function App() {
       <div className="heading">
         <h1>To-Do List</h1>
       </div>
-      <InputArea />
+      <InputArea
+        addItem={addItem}
+        handleChange={handleChange}
+        inputText={inputText}
+      />
       <div>
         <ul>
           {items.map((todoItem, index) => (
